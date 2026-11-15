@@ -10,6 +10,7 @@ User -> FastAPI (/chat) -> Orchestrator (LLM tool-calling | offline rules) -> Sa
 See `architecture.md` and `REPORT.md`.
 
 > **Fresh clone?** The DVC *local remote* (`.dvc-storage/`, ~0.3 MB) is committed so `dvc pull` works right after cloning.
+> The serving model (`models/model.joblib`, 4 MB) is a DVC stage output that is deliberately *not* pushed: run `dvc repro` to rebuild it (also done by `scripts/deploy_k8s.sh`).
 > MLflow history (`mlflow.db`) is not committed: run `./scripts/bootstrap_dvc.sh` once to recreate dataset versions and training runs.
 
 ## 1. Setup

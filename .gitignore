@@ -6,7 +6,6 @@ __pycache__/
 mlruns/
 mlflow-data/
 artifacts_work/
-models/
 .env
 *.log
 airflow/simple_auth_passwords.json.bak

@@ -1,7 +1,10 @@
 stages:
-  train:
-    cmd: python -m training.train
+  export_model:          # reproducible model export used by the Docker image (MLflow tracking is done by the Airflow DAG)
+    cmd: python -m training.train --export-only
     deps:
       - data/customer_churn.csv
       - training/pipeline.py
       - training/train.py
+    outs:
+      - models/model.joblib:
+          push: false

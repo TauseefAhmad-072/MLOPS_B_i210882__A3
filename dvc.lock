@@ -1,0 +1,22 @@
+schema: '2.0'
+stages:
+  export_model:
+    cmd: python -m training.train --export-only
+    deps:
+    - path: data/customer_churn.csv
+      hash: md5
+      md5: b3a5a71f5a021cf320f242f424e2f839
+      size: 66980
+    - path: training/pipeline.py
+      hash: md5
+      md5: 8395b7395295a91273a2f273ad69e412
+      size: 7602
+    - path: training/train.py
+      hash: md5
+      md5: 027bb76f51649a83b7f02cbd22fdc4b0
+      size: 1313
+    outs:
+    - path: models/model.joblib
+      hash: md5
+      md5: 4a9adfa00f8ac862742b6ecb6eee2bda
+      size: 4324665

@@ -1,0 +1,7 @@
+stages:
+  train:
+    cmd: python -m training.train
+    deps:
+      - data/customer_churn.csv
+      - training/pipeline.py
+      - training/train.py

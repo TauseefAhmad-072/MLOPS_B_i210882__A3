@@ -1,0 +1,8 @@
+.git
+mlruns
+mlflow.db
+data
+.dvc-storage
+artifacts_work
+tests
+__pycache__

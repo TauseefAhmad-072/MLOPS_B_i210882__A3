@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "assignment-03-mlops-agent"
+version = "1.0.0"
+requires-python = ">=3.11"
+dependencies = ["fastapi", "uvicorn", "httpx", "pydantic>=2", "pyyaml", "mlflow-skinny>=3", "sqlalchemy", "alembic",
+                "dvc>=3", "kubernetes", "scikit-learn", "pandas", "joblib"]
+[project.optional-dependencies]
+dev = ["pytest", "pytest-cov", "ruff"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+[tool.ruff]
+line-length = 140
+target-version = "py311"
+extend-exclude = ["dags"]   # needs the apache-airflow package to lint imports; syntax is checked by tests
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+ignore = ["E731", "E741", "E501"]
+
+[tool.setuptools]
+packages = ["agent", "agent.tools", "api", "training"]

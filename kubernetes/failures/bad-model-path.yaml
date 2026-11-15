@@ -1,0 +1,9 @@
+# Failure injection #2: ConfigMap points at a model file that does not exist -> pods Running but never Ready.
+apiVersion: v1
+kind: ConfigMap
+metadata: {name: inference-config, namespace: mlops-agent}
+data:
+  MODEL_PATH: "models/does-not-exist.joblib"
+  MODEL_VERSION: "2"
+  APP_VERSION: "1.0.0"
+  FAIL_READINESS: "false"

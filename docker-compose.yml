@@ -1,0 +1,28 @@
+# MLflow tracking server + Airflow 3 (standalone: api-server, scheduler, dag-processor in one container).
+# Airflow UI/API: http://localhost:8080  (admin / admin, see airflow/simple_auth_passwords.json)  MLflow: http://localhost:5000
+services:
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:latest
+    command: mlflow server --host 0.0.0.0 --port 5000 --backend-store-uri sqlite:////mlflow/mlflow.db --artifacts-destination /mlflow/artifacts --serve-artifacts --allowed-hosts "*"
+    ports: ["5000:5000"]
+    volumes: ["./mlflow-data:/mlflow"]
+  airflow:
+    build: {context: ., dockerfile: Dockerfile.airflow}
+    image: mlops-airflow:3.0.6
+    command: standalone
+    ports: ["8080:8080"]
+    depends_on: [mlflow]
+    environment:
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "false"
+      AIRFLOW__CORE__DAGS_FOLDER: /opt/airflow/project/dags
+      AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_USERS: "admin:admin"
+      AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_PASSWORDS_FILE: /opt/airflow/simple_auth_passwords.json
+      AIRFLOW__API_AUTH__JWT_SECRET: "dev-only-change-me"
+      PROJECT_DIR: /opt/airflow/project
+      MLFLOW_TRACKING_URI: http://mlflow:5000
+      PYTHONPATH: /opt/airflow/project
+      _PIP_ADDITIONAL_REQUIREMENTS: "scikit-learn pandas joblib pyyaml mlflow-skinny"
+    volumes:
+      - ./:/opt/airflow/project
+      - ./airflow/simple_auth_passwords.json:/opt/airflow/simple_auth_passwords.json

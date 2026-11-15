@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ml-inference-api
+  namespace: mlops-agent
+  labels: {app: ml-inference-api}
+spec:
+  replicas: 2
+  selector:
+    matchLabels: {app: ml-inference-api}
+  template:
+    metadata:
+      labels:
+        app: ml-inference-api
+        app.kubernetes.io/version: "1.0.0"
+    spec:
+      containers:
+        - name: api
+          image: mlops-inference:1.0.0
+          imagePullPolicy: IfNotPresent
+          ports: [{containerPort: 8000}]
+          envFrom:
+            - configMapRef: {name: inference-config}
+          readinessProbe:
+            httpGet: {path: /ready, port: 8000}
+            initialDelaySeconds: 3
+            periodSeconds: 5
+            failureThreshold: 3
+          livenessProbe:
+            httpGet: {path: /health, port: 8000}
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          resources:
+            requests: {cpu: 100m, memory: 128Mi}
+            limits: {cpu: 500m, memory: 512Mi}

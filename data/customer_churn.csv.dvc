@@ -1,0 +1,5 @@
+outs:
+- md5: 83599631444ad972d85c2aff18f54af0
+  size: 55764
+  hash: md5
+  path: customer_churn.csv

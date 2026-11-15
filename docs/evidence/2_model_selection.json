@@ -1,0 +1,145 @@
+{
+  "question": "Compare the last five training runs and recommend the best candidate based on F1 score",
+  "request_id": "c896d51c3925",
+  "mode": "offline-rules",
+  "answer": "Ranking by f1: 1. rf-1794762780 (e90d7961) 0.8144 gate=passed; 2. rf-1794762773 (c9ba7039) 0.7449 gate=passed; 3. rf-1794762806 (7d073de9) 0.4634 gate=failed\nCaveat: ranking uses one metric on one hold-out split; a higher score alone does not make a run production-ready.",
+  "tool_calls": [
+    {
+      "tool": "mlflow_compare_runs",
+      "status": "ok",
+      "data": {
+        "metric": "f1",
+        "ranking": [
+          {
+            "run_id": "e90d7961b6dd4b4796afe9c8fe966857",
+            "name": "rf-1794762780",
+            "f1": 0.8144,
+            "quality_gate": "passed"
+          },
+          {
+            "run_id": "c9ba7039ff114f4ab918e841c48eec7c",
+            "name": "rf-1794762773",
+            "f1": 0.7449,
+            "quality_gate": "passed"
+          },
+          {
+            "run_id": "7d073de9e42b43caa4c62505d769fda4",
+            "name": "rf-1794762806",
+            "f1": 0.4634,
+            "quality_gate": "failed"
+          }
+        ],
+        "runs": [
+          {
+            "run_id": "7d073de9e42b43caa4c62505d769fda4",
+            "name": "rf-1794762806",
+            "experiment_id": "1",
+            "status": "FINISHED",
+            "start_time": 1794762806932,
+            "metrics": {
+              "accuracy": 0.4017,
+              "precision": 0.3341,
+              "recall": 0.7561,
+              "f1": 0.4634,
+              "roc_auc": 0.4869
+            },
+            "params": {
+              "n_estimators": "1",
+              "max_depth": "1",
+              "seed": "42",
+              "test_size": "0.25",
+              "label_noise": "0.45",
+              "n_train": "1800",
+              "n_test": "600",
+              "model_type": "RandomForest"
+            },
+            "tags": {
+              "mlflow.runName": "rf-1794762806",
+              "dvc.dataset_path": "data/customer_churn.csv",
+              "dvc.dataset_md5": "b3a5a71f5a021cf320f242f424e2f839",
+              "dvc.git_commit": "11079740faffb3b4aa0b933c4d00b0339c170104",
+              "dvc.dataset_version": "data-v2",
+              "dvc.data_matches_recorded": "true",
+              "quality_gate": "failed"
+            }
+          },
+          {
+            "run_id": "e90d7961b6dd4b4796afe9c8fe966857",
+            "name": "rf-1794762780",
+            "experiment_id": "1",
+            "status": "FINISHED",
+            "start_time": 1794762780643,
+            "metrics": {
+              "accuracy": 0.88,
+              "precision": 0.8634,
+              "recall": 0.7707,
+              "f1": 0.8144,
+              "roc_auc": 0.9413
+            },
+            "params": {
+              "n_estimators": "100",
+              "max_depth": "None",
+              "seed": "42",
+              "test_size": "0.25",
+              "label_noise": "0.0",
+              "n_train": "1800",
+              "n_test": "600",
+              "model_type": "RandomForest"
+            },
+            "tags": {
+              "mlflow.runName": "rf-1794762780",
+              "dvc.dataset_path": "data/customer_churn.csv",
+              "dvc.dataset_md5": "b3a5a71f5a021cf320f242f424e2f839",
+              "dvc.git_commit": "11079740faffb3b4aa0b933c4d00b0339c170104",
+              "dvc.dataset_version": "data-v2",
+              "dvc.data_matches_recorded": "true",
+              "quality_gate": "passed"
+            }
+          },
+          {
+            "run_id": "c9ba7039ff114f4ab918e841c48eec7c",
+            "name": "rf-1794762773",
+            "experiment_id": "1",
+            "status": "FINISHED",
+            "start_time": 1794762773910,
+            "metrics": {
+              "accuracy": 0.874,
+              "precision": 0.8932,
+              "recall": 0.6389,
+              "f1": 0.7449,
+              "roc_auc": 0.9354
+            },
+            "params": {
+              "n_estimators": "100",
+              "max_depth": "None",
+              "seed": "42",
+              "test_size": "0.25",
+              "label_noise": "0.0",
+              "n_train": "1500",
+              "n_test": "500",
+              "model_type": "RandomForest"
+            },
+            "tags": {
+              "mlflow.runName": "rf-1794762773",
+              "dvc.dataset_path": "data/customer_churn.csv",
+              "dvc.dataset_md5": "83599631444ad972d85c2aff18f54af0",
+              "dvc.git_commit": "f2954f04acd9502b5c2627f2e58503028bd2e2fa",
+              "dvc.dataset_version": "data-v1",
+              "dvc.data_matches_recorded": "true",
+              "quality_gate": "passed"
+            }
+          }
+        ]
+      },
+      "error": null,
+      "duration_ms": 14.5,
+      "request_id": "c896d51c3925"
+    }
+  ],
+  "facts": [
+    "Ranking by f1: 1. rf-1794762780 (e90d7961) 0.8144 gate=passed; 2. rf-1794762773 (c9ba7039) 0.7449 gate=passed; 3. rf-1794762806 (7d073de9) 0.4634 gate=failed",
+    "Caveat: ranking uses one metric on one hold-out split; a higher score alone does not make a run production-ready."
+  ],
+  "uncertainties": [],
+  "recommendations": []
+}

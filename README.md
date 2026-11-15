@@ -9,6 +9,9 @@ User -> FastAPI (/chat) -> Orchestrator (LLM tool-calling | offline rules) -> Sa
 ```
 See `architecture.md` and `REPORT.md`.
 
+> **Fresh clone?** The DVC *local remote* (`.dvc-storage/`, ~0.3 MB) is committed so `dvc pull` works right after cloning.
+> MLflow history (`mlflow.db`) is not committed: run `./scripts/bootstrap_dvc.sh` once to recreate dataset versions and training runs.
+
 ## 1. Setup
 ```bash
 python3 -m venv .venv && source .venv/bin/activate
@@ -65,3 +68,13 @@ Then ask: *"Why did the training pipeline fail?"* / *"Why is my prediction API u
 * Kubernetes: approved namespace allow-list (`ALLOWED_NAMESPACES`), replicas 1–5. Airflow: approved DAG allow-list. DVC/git: sub-command allow-list, no shell, revision regex.
 * Retraining is never started implicitly; it is only *recommended* with evidence (failed gate, freshness policy `MODEL_MAX_AGE_DAYS`, supplied degradation results).
 * No secrets in the repo; `airflow/simple_auth_passwords.json` is a local-dev default only.
+
+## Updating the repo later (typical loop)
+```bash
+git pull
+# ...change code / add live evidence...
+pytest && ruff check .
+python scripts/capture_evidence.py && python scripts/build_report.py   # refresh REPORT.md from live evidence
+git add -A && git commit -m "describe change" && git push
+```
+Data change: edit/regenerate the dataset -> `dvc add data/customer_churn.csv` -> `git add data/customer_churn.csv.dvc` -> commit -> `git tag data-v3` -> `dvc push` -> commit `.dvc-storage`.

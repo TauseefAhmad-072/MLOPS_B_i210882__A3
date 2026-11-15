@@ -1,0 +1,4 @@
+md5 before (data-v2): b3a5a71f5a021cf320f242f424e2f839
+dvc_checkout data-v1: ok | md5 now: 83599631444ad972d85c2aff18f54af0
+workspace matches recorded (v1 pointer): True
+restored to HEAD pointer, md5: b3a5a71f5a021cf320f242f424e2f839

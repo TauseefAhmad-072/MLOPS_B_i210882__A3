@@ -7,3 +7,5 @@
 - Phase P4: orchestrator (LLM + rules), multi-tool playbook, retrain-evidence policy, trigger guard.
 - Phase P5: 43 tests; fixed a brittle DAG-order test; migrated inference API to lifespan; ruff clean; CI; failure injection run locally (validation fail: 70 nulls; gate fail: f1=0.17).
 - Honesty fix: multi-tool answer marks conclusion PARTIAL when Kubernetes/Airflow evidence is missing.
+- Replaced breast-cancer data with synthetic customer-churn data (tuned so good model F1 ~0.75-0.81, bad ~0.19-0.46; gate 0.70). Rebuilt DVC/MLflow state on branch `main`.
+- Fixed packaging (`pip install -e .` failed on flat layout; CI would have broken), added Dockerfile.airflow (git inside Airflow), DAGs unpaused by default, committed DVC local remote, added scripts/build_report.py.

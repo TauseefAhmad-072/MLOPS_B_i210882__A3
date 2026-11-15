@@ -7,7 +7,6 @@ mlruns/
 mlflow-data/
 artifacts_work/
 models/
-.dvc-storage/
 .env
 *.log
 airflow/simple_auth_passwords.json.bak

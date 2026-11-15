@@ -1,0 +1,28 @@
+{
+  "question": "Which dataset version was used for experiment 1?",
+  "request_id": "76a0663b3ffd",
+  "mode": "offline-rules",
+  "answer": "Run 7d073de9 used dataset data/customer_churn.csv version data-v2 (md5 b3a5a71f5a021cf320f242f424e2f839), Git commit 11079740. Data matched recorded hash at training time: true.",
+  "tool_calls": [
+    {
+      "tool": "dvc_run_provenance",
+      "status": "ok",
+      "data": {
+        "run_id": "7d073de9e42b43caa4c62505d769fda4",
+        "dataset_path": "data/customer_churn.csv",
+        "dataset_md5": "b3a5a71f5a021cf320f242f424e2f839",
+        "dataset_version": "data-v2",
+        "git_commit": "11079740faffb3b4aa0b933c4d00b0339c170104",
+        "data_matched_recorded_hash": "true"
+      },
+      "error": null,
+      "duration_ms": 1872.7,
+      "request_id": "76a0663b3ffd"
+    }
+  ],
+  "facts": [
+    "Run 7d073de9 used dataset data/customer_churn.csv version data-v2 (md5 b3a5a71f5a021cf320f242f424e2f839), Git commit 11079740. Data matched recorded hash at training time: true."
+  ],
+  "uncertainties": [],
+  "recommendations": []
+}

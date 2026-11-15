@@ -1,4 +1,5 @@
 import joblib
+import pandas as pd
 import pytest
 from fastapi.testclient import TestClient
 

@@ -1,0 +1,113 @@
+{
+  "question": "Find the best recent model, identify the dataset version used to train it, check the deployment status, and explain whether retraining is necessary.",
+  "request_id": "130ba1cb1c48",
+  "mode": "offline-rules",
+  "answer": "KNOWN FACTS\n- Best run by f1 among 3 recent runs: e90d7961b6dd4b4796afe9c8fe966857 (rf-1794762780), accuracy=0.8800, precision=0.8634, recall=0.7707, f1=0.8144, roc_auc=0.9413.\n- Quality gate tag: passed; run age 0.0 days.\n- Caveat: selected on a single metric on one hold-out split; validate on production-like data before promotion\n- Run e90d7961 used dataset data/customer_churn.csv version data-v2 (md5 b3a5a71f5a021cf320f242f424e2f839), Git commit 11079740. Data matched recorded hash at training time: true.\n\nUNCERTAINTIES\n- Deployment health UNKNOWN - [k8s_diagnose_deployment] UNAVAILABLE: Kubernetes cluster not reachable/configured: ConfigException: Invalid kube-config file. No configuration found.\n- Deployed version UNKNOWN - [k8s_deployed_version] UNAVAILABLE: Kubernetes cluster not reachable/configured: ConfigException: Invalid kube-config file. No configuration found.\n- Recent training workflows UNKNOWN - [airflow_get_dag_runs] ERROR: AIRFLOW_PASSWORD (or AIRFLOW_TOKEN) is not configured\n- The deployment does not record which MLflow run its model came from, so 'deployed model == selected best run' cannot be verified from tool data.\n- No production-degradation results were supplied; live model quality is unknown.\n\nRECOMMENDED ACTIONS\n- Retraining is NOT recommended on the evidence collected (no failed quality gate, no degradation data, within freshness policy of 30 days). This conclusion is PARTIAL because Kubernetes, Airflow evidence was unavailable.\n- No retraining was triggered by this request.",
+  "tool_calls": [
+    {
+      "tool": "mlflow_best_run",
+      "status": "ok",
+      "data": {
+        "metric": "f1",
+        "considered_runs": 3,
+        "best": {
+          "run_id": "e90d7961b6dd4b4796afe9c8fe966857",
+          "name": "rf-1794762780",
+          "experiment_id": "1",
+          "status": "FINISHED",
+          "start_time": 1794762780643,
+          "metrics": {
+            "accuracy": 0.88,
+            "precision": 0.8634,
+            "recall": 0.7707,
+            "f1": 0.8144,
+            "roc_auc": 0.9413
+          },
+          "params": {
+            "n_estimators": "100",
+            "max_depth": "None",
+            "seed": "42",
+            "test_size": "0.25",
+            "label_noise": "0.0",
+            "n_train": "1800",
+            "n_test": "600",
+            "model_type": "RandomForest"
+          },
+          "tags": {
+            "mlflow.runName": "rf-1794762780",
+            "dvc.dataset_path": "data/customer_churn.csv",
+            "dvc.dataset_md5": "b3a5a71f5a021cf320f242f424e2f839",
+            "dvc.git_commit": "11079740faffb3b4aa0b933c4d00b0339c170104",
+            "dvc.dataset_version": "data-v2",
+            "dvc.data_matches_recorded": "true",
+            "quality_gate": "passed"
+          }
+        },
+        "age_days": 0.0,
+        "caveats": [
+          "selected on a single metric on one hold-out split; validate on production-like data before promotion"
+        ],
+        "note": "best on this metric does not by itself make a model production-ready"
+      },
+      "error": null,
+      "duration_ms": 13.9,
+      "request_id": "130ba1cb1c48"
+    },
+    {
+      "tool": "dvc_run_provenance",
+      "status": "ok",
+      "data": {
+        "run_id": "e90d7961b6dd4b4796afe9c8fe966857",
+        "dataset_path": "data/customer_churn.csv",
+        "dataset_md5": "b3a5a71f5a021cf320f242f424e2f839",
+        "dataset_version": "data-v2",
+        "git_commit": "11079740faffb3b4aa0b933c4d00b0339c170104",
+        "data_matched_recorded_hash": "true"
+      },
+      "error": null,
+      "duration_ms": 7.4,
+      "request_id": "130ba1cb1c48"
+    },
+    {
+      "tool": "k8s_diagnose_deployment",
+      "status": "unavailable",
+      "data": null,
+      "error": "Kubernetes cluster not reachable/configured: ConfigException: Invalid kube-config file. No configuration found.",
+      "duration_ms": 0.8,
+      "request_id": "130ba1cb1c48"
+    },
+    {
+      "tool": "k8s_deployed_version",
+      "status": "unavailable",
+      "data": null,
+      "error": "Kubernetes cluster not reachable/configured: ConfigException: Invalid kube-config file. No configuration found.",
+      "duration_ms": 0.7,
+      "request_id": "130ba1cb1c48"
+    },
+    {
+      "tool": "airflow_get_dag_runs",
+      "status": "error",
+      "data": null,
+      "error": "AIRFLOW_PASSWORD (or AIRFLOW_TOKEN) is not configured",
+      "duration_ms": 179.3,
+      "request_id": "130ba1cb1c48"
+    }
+  ],
+  "facts": [
+    "Best run by f1 among 3 recent runs: e90d7961b6dd4b4796afe9c8fe966857 (rf-1794762780), accuracy=0.8800, precision=0.8634, recall=0.7707, f1=0.8144, roc_auc=0.9413.",
+    "Quality gate tag: passed; run age 0.0 days.",
+    "Caveat: selected on a single metric on one hold-out split; validate on production-like data before promotion",
+    "Run e90d7961 used dataset data/customer_churn.csv version data-v2 (md5 b3a5a71f5a021cf320f242f424e2f839), Git commit 11079740. Data matched recorded hash at training time: true."
+  ],
+  "uncertainties": [
+    "Deployment health UNKNOWN - [k8s_diagnose_deployment] UNAVAILABLE: Kubernetes cluster not reachable/configured: ConfigException: Invalid kube-config file. No configuration found.",
+    "Deployed version UNKNOWN - [k8s_deployed_version] UNAVAILABLE: Kubernetes cluster not reachable/configured: ConfigException: Invalid kube-config file. No configuration found.",
+    "Recent training workflows UNKNOWN - [airflow_get_dag_runs] ERROR: AIRFLOW_PASSWORD (or AIRFLOW_TOKEN) is not configured",
+    "The deployment does not record which MLflow run its model came from, so 'deployed model == selected best run' cannot be verified from tool data.",
+    "No production-degradation results were supplied; live model quality is unknown."
+  ],
+  "recommendations": [
+    "Retraining is NOT recommended on the evidence collected (no failed quality gate, no degradation data, within freshness policy of 30 days). This conclusion is PARTIAL because Kubernetes, Airflow evidence was unavailable.",
+    "No retraining was triggered by this request."
+  ]
+}

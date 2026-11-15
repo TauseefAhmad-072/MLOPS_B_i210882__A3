@@ -1,0 +1,21 @@
+{
+  "question": "Why is my prediction API unavailable?",
+  "request_id": "e4071cf3fc09",
+  "mode": "offline-rules",
+  "answer": "[k8s_diagnose_deployment] UNAVAILABLE: Kubernetes cluster not reachable/configured: ConfigException: Invalid kube-config file. No configuration found.",
+  "tool_calls": [
+    {
+      "tool": "k8s_diagnose_deployment",
+      "status": "unavailable",
+      "data": null,
+      "error": "Kubernetes cluster not reachable/configured: ConfigException: Invalid kube-config file. No configuration found.",
+      "duration_ms": 94.4,
+      "request_id": "e4071cf3fc09"
+    }
+  ],
+  "facts": [],
+  "uncertainties": [
+    "[k8s_diagnose_deployment] UNAVAILABLE: Kubernetes cluster not reachable/configured: ConfigException: Invalid kube-config file. No configuration found."
+  ],
+  "recommendations": []
+}
